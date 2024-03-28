@@ -7,5 +7,5 @@
 # DON'T EDIT THIS!
 cp $(dirname $0)/package.json .
 cp $(dirname $0)/package-lock.json .
-cp $(dirname $0)/app/* .
+cp $(dirname $0)/app/* . -r
 exec node main.js "$@"
