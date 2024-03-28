@@ -7,4 +7,5 @@
 # DON'T EDIT THIS!
 cp $(dirname $0)/app/command.js .
 cp $(dirname $0)/app/main.js .
+ls -l
 exec node main.js "$@"
