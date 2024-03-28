@@ -1,4 +1,4 @@
-const { createGitDirectory } = require('./commands');
+const { createGitDirectory } = require('./commands.js');
 
 const command = process.argv[2];
 
