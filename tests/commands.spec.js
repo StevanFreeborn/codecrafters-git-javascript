@@ -1,11 +1,18 @@
-import { createGitDirectory } from '../app/commands';
-import { mkdirSync, writeFileSync } from 'fs';
+import {
+  catFile,
+  createGitDirectory,
+  getObjectDirectory,
+  getObjectFileName,
+} from '../app/commands';
+import { mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { describe, expect, it, vi } from 'vitest';
+import { deflateSync } from 'zlib';
 
 vi.mock('fs', () => ({
   mkdirSync: vi.fn(),
   writeFileSync: vi.fn(),
+  readFileSync: vi.fn(),
 }));
 
 vi.mock('path', () => ({
@@ -42,5 +49,34 @@ describe('createGitDirectory', () => {
       `${process.cwd()}/.git/HEAD`,
       'ref: refs/heads/main\n'
     );
+  });
+
+  describe('getObjectDirectory', () => {
+    it('should return the first two characters of the object hash', () => {
+      const fakeHash = 'abcdef1234567890';
+      expect(getObjectDirectory(fakeHash)).toBe('ab');
+    });
+  });
+
+  describe('getObjectFileName', () => {
+    it('should return the object hash without the first two characters', () => {
+      const fakeHash = 'abcdef1234567890';
+      expect(getObjectFileName(fakeHash)).toBe('cdef1234567890');
+    });
+  });
+
+  describe('catFile', () => {
+    it('should print the contents of a file', () => {
+      const compressedData = deflateSync(Buffer.from('blob 5\0hello', 'utf-8'));
+      readFileSync.mockReturnValue(Buffer.from(compressedData, 'utf-8'));
+
+      const consoleSpy = vi.spyOn(console, 'log');
+
+      catFile('abcdef1234567890');
+
+      expect(readFileSync).toHaveBeenCalledWith(`${process.cwd()}/.git/objects/ab/cdef1234567890`);
+
+      expect(consoleSpy).toHaveBeenCalledWith('hello');
+    });
   });
 });
