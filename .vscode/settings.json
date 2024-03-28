@@ -1,5 +1,4 @@
 {
-  "cSpell.words": [
-    "codecrafters"
-  ]
+  "cSpell.words": ["codecrafters"],
+  "editor.formatOnSave": true
 }

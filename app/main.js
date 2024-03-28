@@ -4,7 +4,7 @@ const path = require('path');
 const command = process.argv[2];
 
 switch (command) {
-  case "init":
+  case 'init':
     createGitDirectory();
     break;
   default:
@@ -12,10 +12,10 @@ switch (command) {
 }
 
 function createGitDirectory() {
-  fs.mkdirSync(path.join(__dirname, ".git"), { recursive: true });
-  fs.mkdirSync(path.join(__dirname, ".git", "objects"), { recursive: true });
-  fs.mkdirSync(path.join(__dirname, ".git", "refs"), { recursive: true });
+  fs.mkdirSync(path.join(__dirname, '.git'), { recursive: true });
+  fs.mkdirSync(path.join(__dirname, '.git', 'objects'), { recursive: true });
+  fs.mkdirSync(path.join(__dirname, '.git', 'refs'), { recursive: true });
 
-  fs.writeFileSync(path.join(__dirname, ".git", "HEAD"), "ref: refs/heads/main\n");
-  console.log("Initialized git directory");
+  fs.writeFileSync(path.join(__dirname, '.git', 'HEAD'), 'ref: refs/heads/main\n');
+  console.log('Initialized git directory');
 }
