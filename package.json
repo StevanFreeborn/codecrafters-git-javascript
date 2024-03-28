@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "A solution to the codecrafters.io challenge to build a git implementation in JavaScript",
   "main": "index.js",
+  "type": "module",
   "private": true,
   "scripts": {
     "lint": "eslint --fix .",
-    "format": "prettier --log-level error --write .",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "format": "prettier --log-level error --write ."
   },
   "keywords": [],
   "author": "",
