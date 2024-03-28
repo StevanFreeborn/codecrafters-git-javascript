@@ -20,6 +20,8 @@ vi.mock('path', () => ({
 }));
 
 describe('createGitDirectory', () => {
+  vi.spyOn(console, 'log').mockImplementation(vi.fn());
+
   it('should create a .git directory', () => {
     createGitDirectory();
 
@@ -70,13 +72,13 @@ describe('createGitDirectory', () => {
       const compressedData = deflateSync(Buffer.from('blob 5\0hello', 'utf-8'));
       readFileSync.mockReturnValue(Buffer.from(compressedData, 'utf-8'));
 
-      const consoleSpy = vi.spyOn(console, 'log');
+      const stdOutSpy = vi.spyOn(process.stdout, 'write').mockImplementation(vi.fn());
 
       catFile('abcdef1234567890');
 
       expect(readFileSync).toHaveBeenCalledWith(`${process.cwd()}/.git/objects/ab/cdef1234567890`);
 
-      expect(consoleSpy).toHaveBeenCalledWith('hello');
+      expect(stdOutSpy).toHaveBeenCalledWith('hello');
     });
   });
 });
