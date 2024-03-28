@@ -30,7 +30,7 @@ export function catFile(objectHash) {
   const decompressedData = inflateSync(compressedData);
   const data = decompressedData.toString();
   const fileContent = data.split('\0')[1];
-  console.log(fileContent);
+  process.stdout.write(fileContent);
 }
 
 export function getObjectDirectory(objectHash) {
