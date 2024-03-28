@@ -2,10 +2,12 @@ import { mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 export function createGitDirectory() {
-  mkdirSync(join(__dirname, '.git'), { recursive: true });
-  mkdirSync(join(__dirname, '.git', 'objects'), { recursive: true });
-  mkdirSync(join(__dirname, '.git', 'refs'), { recursive: true });
+  const gitDirPath = join(process.cwd(), '.git');
 
-  writeFileSync(join(__dirname, '.git', 'HEAD'), 'ref: refs/heads/main\n');
+  mkdirSync(gitDirPath, { recursive: true });
+  mkdirSync(join(gitDirPath, 'objects'), { recursive: true });
+  mkdirSync(join(gitDirPath, 'refs'), { recursive: true });
+
+  writeFileSync(join(gitDirPath, 'HEAD'), 'ref: refs/heads/main\n');
   console.log('Initialized git directory');
 }
