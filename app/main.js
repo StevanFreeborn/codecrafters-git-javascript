@@ -1,4 +1,4 @@
-import { createGitDirectory } from './commands';
+import { createGitDirectory } from './commands.js';
 
 const command = process.argv[2];
 
