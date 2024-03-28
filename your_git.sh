@@ -5,5 +5,5 @@
 # CodeCrafters uses this file to test your code. Don't make any changes here!
 #
 # DON'T EDIT THIS!
-cp $(dirname $0)/* .
+cp $(dirname $0)/* . -r
 exec node ./app/main.js "$@"
